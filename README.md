@@ -1,0 +1,1 @@
+# yyd-vue-mo-multipage
