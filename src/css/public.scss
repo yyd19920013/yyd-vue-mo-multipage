@@ -1,0 +1,475 @@
+@charset"utf-8";
+/* CSS Document */
+
+/*sass定义*/
+/*计算单位函数*/
+@function unit($num){
+    $scale: 1;//缩放比例
+
+    @return #{if($num == 1, 1, $num * $scale)}px;
+}
+
+/*公共变量*/
+$main: #33adff;//主色
+$bg: #f2f2f2;//背景色
+$orangeBg: #ffe4dd;//橙色背景
+$orange: #ff7955;//橙色
+$gray: #ccc;//灰色
+$lightBlue: #e5f5ff;//浅蓝色
+$padding: 15px;//边距
+$height1: 44px;//常用高度1
+$border1: 1px solid #e4e4e4;//常用边框1
+$border2: 1px solid #bbbcc6;//常用边框2，头像边框
+
+/*公共样式*/
+/*搜索医生*/
+@mixin searchDoctor(){
+    height: 44px;
+    padding: 7px $padding;
+    background-color: #fff;
+    .searchWrap{
+        display: flex;
+        height: 100%;
+        background-color: $bg;
+        border-radius: 25px;
+        position: relative;
+        .icon-ic_search{
+            width: 50px;
+            height: 100%;
+            line-height: 30px;
+            text-align: center;
+            font-size: 20px;
+            color: #999;
+        }
+        .close{
+            width: 30px;
+            height: 100%;
+            font-size: 20px;
+            color: $gray;
+            position: absolute;
+            right: 0;
+            top: 0;
+        }
+        input{
+            flex:1;
+            height: 100%;
+            border: none;
+            background-color: transparent;
+        }
+    }
+}
+
+/*选择标签*/
+@mixin selectLabel(){
+    overflow: hidden;
+    font-size: 12px;
+    span{
+        float: left;
+        padding: 0 10px;
+        margin-right: 10px;
+        margin-bottom: 10px;
+        min-width: 60px;
+        height: 30px;
+        line-height: 30px;
+        text-align: center;
+        background-color: $bg;
+        color: #666;
+        border-radius: 2px;
+        position: relative;
+        &.active{
+            background-color: $main;
+            color: #fff;
+        }
+    }
+}
+
+/*选择标签1*/
+@mixin selectLabel1(){
+    overflow: hidden;
+    font-size: 12px;
+    span{
+        float: left;
+        width: 33.333%;
+        padding: 0 5px;
+        margin-bottom: 10px;
+        height: 30px;
+        em{
+            display: block;
+            width: 100%;
+            height: 100%;
+            line-height: 30px;
+            text-align: center;
+            border: $border1;
+            border-radius: 2px;
+            color: #666;
+            position: relative;
+        }
+        &.active{
+            em{
+                background-color: $lightBlue;
+                color: $main;
+            }
+        }
+    }
+}
+
+/*医生信息*/
+@mixin doctorInfo(){
+    background-color: $main;
+    .basic{
+        display: flex;
+        padding: $padding;
+        >a{
+            display: flex;
+            width: 100%;
+        }
+        .portrait{
+            @include portrait('../../../');
+        }
+        .rightContent{
+            flex: 1;
+            padding: 5px 0;
+            padding-left: $padding;
+            padding-right: 50px;
+            line-height: 25px;
+            color: #fff;
+            position: relative;
+            h3{
+                span{
+                    margin-right: 5px;
+                    font-size: 16px;
+                }
+            }
+            h4{
+                span{
+                    margin-right: 5px;
+                }
+            }
+            i{
+                position: absolute;
+                right: 0;
+                top: 50%;
+                transform: translate3d(0,-50%,0);
+            }
+        }
+    }
+}
+
+/*vue选择日期组件样式*/
+@mixin vuxDatetime(){
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0;
+    .vux-input-icon{
+        display: none;
+    }
+    .vux-datetime-value{
+        padding-right: 0;
+        text-align: right;
+        &:after{
+            display: none;
+        }
+    }
+}
+
+/*橙色提示信息*/
+@mixin orangeHint(){
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    background-color: $orangeBg;
+    color: $orange;
+}
+
+/*问诊劵样式*/
+@mixin ticketList(){
+    padding: $padding;
+    padding-top: $padding;
+    >li{
+        background-color: #fff;
+        color: #999;
+        font-size: 12px;
+        border: $border1;
+        margin-bottom: $padding;
+        position: relative;
+        .main{
+            display: flex;
+            justify-content: space-between;
+            padding: $padding;
+            border-bottom: 1px dashed #ddd;
+            position: relative;
+            &:before,&:after{
+                content: "";
+                width: 16px;
+                height: 16px;
+                background-color: $bg;
+                border: $border1;
+                border-radius: 50%;
+                position: absolute;
+                bottom: -8px;
+            }
+            &:before{
+                left: -8px;
+            }
+            &:after{
+                right: -8px;
+            }
+            .wrap{
+                flex: 1;
+                padding-right: 55px;
+                background: url('../../../../../images/icon/ic_ticket_checkbox_nor.png') no-repeat right center;
+                background-size: 40px;
+                h3{
+                    font-size: 16px;
+                    color: #333;
+                }
+            }
+        }
+        .end{
+            padding: 7px $padding;
+            line-height: 20px;
+            position: relative;
+            &:before,&:after{
+                content: "";
+                width: 16px;
+                height: 16px;
+                background-color: $bg;
+                position: absolute;
+                top: -8px;
+                z-index: 10;
+            }
+            &:before{
+                left: -16px;
+            }
+            &:after{
+                right: -16px;
+            }
+        }
+        &.active{
+            .main{
+                .wrap{
+                    background-image: url('../../../../../images/icon/ic_ticket_checkbox_sel-.png');
+                }
+            }
+        }
+    }
+    &.disabled{
+        >li{
+            .main{
+                .wrap{
+                    background-image: none;
+                    h3{
+                        color: #999;
+                    }
+                }
+            }
+        }
+    }
+    &.my{
+        >li{
+            .main{
+                .wrap{
+                    background-image: none;
+                    padding-right: $padding;
+                    h3{
+                        color: #999;
+                    }
+                }
+                .btWrap{
+                    display: flex;
+                    align-items: center;
+                    a{
+                        width: 80px;
+                        height: 30px;
+                        line-height: 30px;
+                        text-align: center;
+                        background-color: $orange;
+                        color: #fff;
+                        border-radius: 15px;
+                        display: none;
+                        &:nth-of-type(1){
+                            display: block;
+                        }
+                    }
+                }
+            }
+            >a{
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                left: 0;
+                top: 0;
+                z-index: 10;
+            }
+        }
+        &.disabled{
+            >li{
+                .main{
+                    .btWrap{
+                        a{
+                            &:nth-of-type(1){
+                                display: none;
+                            }
+                            &:nth-of-type(2){
+                                display: block;
+                                background-color: $gray;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+/*操作按钮样式*/
+@mixin handWrap(){
+    min-height: $height1;
+    padding: 7px $padding;
+    padding-bottom: 0;
+    display: flex;
+    justify-content: flex-end;
+    flex-flow: wrap;
+    >a{
+        min-width: 80px;
+        height: 30px;
+        line-height: 28px;
+        margin-left: 7px;
+        margin-bottom: 7px;
+        text-align: center;
+        border: $border1;
+        border-radius: 15px;
+        &.pay{
+            border-color: $orange;
+            color: $orange;
+        }
+        &.confirm,&.toEvaluation{
+            border-color: $main;
+            color: $main;
+        }
+        &.evaluated{
+            color: #999;
+        }
+        &.cancel{
+            color: #999;
+        }
+        &.delete{
+
+        }
+        &.checkLogistics{
+
+        }
+        &.checkEvaluation{
+
+        }
+    }
+}
+
+/*图或者视小标签*/
+/*
+    $path（传入的路径）
+*/
+@mixin tuAndShi($path){
+    display: inline-block;
+    width: 20px;
+    margin: 0 2px;
+    height: 20px;
+    line-height: 20px;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 12px;
+    background: no-repeat center center;
+    background-size: cover;
+    color: #fff;
+    &.tu{
+        background-image: url($path + 'images/icon/img_tip_photo@2x.png');
+    }
+    &.shi{
+        background-image: url($path + 'images/icon/img_tip_video@2x.png');
+    }
+}
+
+/*收货地址样式*/
+@mixin shippingAddress($path){
+    display: block;
+    padding: $padding;
+    padding-left: 45px;
+    padding-right: $padding;
+    margin-bottom: 10px;
+    background: #fff url($path + 'images/icon/ic_list_site_gray.png') no-repeat 15px center;
+    background-size: 20px;
+    h3{
+        display: flex;
+        justify-content: space-between;
+        line-height: 24px;
+    }
+    h4{
+        line-height: 20px;
+    }
+}
+
+/*订单信息样式（带药品列表）*/
+@mixin orderInfo($path){
+    margin-bottom: 10px;
+    background-color: #fff;
+    .title{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px $padding;
+        line-height: 20px;
+        span{
+            flex: 1;
+            padding-right: $padding;
+        }
+        a{
+            padding-left: 40px;
+            background: #fff url($path + 'images/icon/ic_user_consult.png') no-repeat 10px center;
+            background-size: 20px;
+        }
+    }
+    .main{
+        border-bottom: $border1;
+        .drugList{
+            padding: 0 $padding;
+            li{
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 10px $padding;
+                margin-bottom: 5px;
+                line-height: 20px;
+                background-color: $bg;
+                border-radius: 5px;
+                .left{
+                    flex: 1;
+                    padding-right: $padding;
+                }
+                .right{
+                    text-align: right;
+                }
+                h4{
+                    font-size: 12px;
+                    color: #999;
+                }
+            }
+        }
+    }
+}
+
+/*头像样式*/
+@mixin portrait($path){
+    width: 60px;
+    height: 60px;
+    border: $border1;
+    border-radius: 50%;
+    background: url($path + 'images/portrait.png') no-repeat center center;
+    background-size: cover;
+}
+
+
+
+
+
+

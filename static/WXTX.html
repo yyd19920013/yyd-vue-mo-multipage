@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html ng-app="daCollect">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+
+<!--允许全屏模式浏览-->
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+
+<!--顶端的状态条的样式，default，black和black-translucent（灰色半透明）-->
+<meta name="apple-mobile-web-app-status-bar-style" content="black"> 
+
+<!--忽略数字识别为电话号码-->
+<meta name="format-detection" content="telephone=no"/>
+
+<!--关闭uc下字太多字体变大-->
+<meta name="wap-font-scale" content="no">
+
+<meta name="keywords" content="木有车，二手车，汽车保险，汽车陪练，上牌过户，补牌补证，汽车年检，违章代缴，违章查询，驾照补换，查保养，路救"/>
+<meta name="description" content="木有车网，隶属南昌小目标车网科技发展股份有限公司，以新型经营模式为核心的电子商务汽车服务平台，让汽车服务商（商家）成为多功能商家，让广大用户（车主）成为消费商，让合作伙伴（加盟者）成为股东。"/>
+<title>木有车网欢迎您！</title>
+<script>
+//返回当前地址?后面的参数的json格式(用于submit提交的str='1'&str1='2'格式)
+function strToJson(str){
+	var str=str||window.location.search;
+	var reg=/&+/g;
+	var reg1=/=+/g;
+	
+	str=decodeURI(str);
+	str=str.replace('?','');
+	str=str.replace(reg,'","');
+	str=str.replace(reg1,'":"');
+	str='{"'+str+'"}';
+	console.log(str)
+	str=JSON.parse(str);	
+	return str;
+};
+
+//返回当前地址?后面的参数的json格式(用于自己拼接的str={}&str1={}格式)
+//注意要拼接标准json格式
+function strToJson1(str){
+	var str=str||window.location.search;
+	var reg=/&+/g;
+	var reg1=/=+/g;
+	var reg2=/^\?$/;
+	
+	str=decodeURI(str);
+	str=reg2.test(str)?str.replace('?','"'):'"'+str;	
+	str=str.replace(reg,',"');
+	str=str.replace(reg1,'":');
+	str='{'+str+'}';
+	str=JSON.parse(str);	
+	return str;
+};
+
+var arr=window.location.search.replace('?','').split('&');
+var json={};
+var code='';
+
+if(arr[0].match('json=')){
+	json=strToJson1(arr[0]).json;
+}
+if(arr[1].match('code=')){
+	code=strToJson(arr[1]).code;
+}
+
+window.location.href=json.origin+'/mo1/?#/user/wallet/withdrawDepositNext?payType='+json.payType+'&payAmount='+json.payAmount+'&AmountType='+json.AmountType+'&code='+code;
+</script>
+</head>
+
+<body>
+
+</body> 
+</html>

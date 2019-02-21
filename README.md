@@ -1,1 +1,1 @@
-# yyd-vue-mo-multipage
+This is a vue.js multipage project.

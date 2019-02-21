@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="format-detection" content="telephone=no"/>
+    <title>Announcement</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-size: 15px;
+            min-width: 950px;
+        }
+
+        ul {
+            list-style: none;
+            display: none;
+        }
+
+        #container {
+            width: 920px;
+            margin: 50px auto 50px;
+        }
+
+        #language-container {
+            display: inline-block;
+            position: relative;
+        }
+
+        #current-language {
+            color: #1f90d6;
+            cursor: pointer;
+        }
+
+        .down-triangle {
+            display: inline-block;
+            width: 0;
+            height: 0;
+            border-top: 5px solid #1f90d6;
+            border-right: 5px solid transparent;
+            border-left: 5px solid transparent;
+            margin: 0 0 3px 4px;
+        }
+
+        #language-options {
+            position: absolute;
+            top: 30px;
+            left: 0;
+            box-shadow: 0 2px 6px 0 rgba(0, 0, 255, .2);
+            padding: 6px 0;
+        }
+
+        #language-options li {
+            padding: 0 14px;
+            width: 70px;
+            line-height: 30px;
+            cursor: pointer;
+            text-align: left;
+            color: #9e9e9e;
+        }
+
+        #language-options li:hover {
+            color: #1f90d6;
+        }
+
+        #bg {
+            background: url(./ico.png) no-repeat center;
+            height: 220px;
+            margin: 50px 0;
+        }
+
+        .bold {
+            font-weight: bold;
+        }
+
+        .line-height-35 {
+            line-height: 35px;
+        }
+
+        .right {
+            text-align: right;
+        }
+
+        .margin-50 {
+            margin: 50px 0;
+        }
+
+        #open-customer-container span {
+            display: inline-block;
+            width: 158px;
+            height: 54px;
+            line-height: 54px;
+            text-align: center;
+            color: #fff;
+            background-color: #1f90d6;
+            cursor: pointer;
+        }
+    </style>
+    <!-- Start of raiden Zendesk Widget script -->
+    <script>/*<![CDATA[*/
+    window.zEmbed || function (e, t) {
+        var n, o, d, i, s, a = [], r = document.createElement("iframe");
+        window.zEmbed = function () {
+            a.push(arguments)
+        }, window.zE = window.zE || window.zEmbed, r.src = "javascript:false", r.title = "", r.role = "presentation", (r.frameElement || r).style.cssText = "display: none", d = document.getElementsByTagName("script"), d = d[d.length - 1], d.parentNode.insertBefore(r, d), i = r.contentWindow, s = i.document;
+        try {
+            o = s
+        } catch (e) {
+            n = document.domain, r.src = 'javascript:var d=document.open();d.domain="' + n + '";void(0);', o = s
+        }
+        o.open()._l = function () {
+            var e = this.createElement("script");
+            n && (this.domain = n), e.id = "js-iframe-async", e.src = "https://assets.zendesk.com/embeddable_framework/main.js", this.t = +new Date, this.zendeskHost = "penaex.zendesk.com", this.zEQueue = a, this.body.appendChild(e)
+        }, o.write('<body onload="document._l();">'), o.close()
+    }();
+    /*]]>*/
+    zE(function () {
+        zE.setLocale('zh-EN');
+        zE.hide();
+    });
+    </script>
+    <!-- End of raiden Zendesk Widget script -->
+    <script>
+        function showLanguage(e) {
+            e.stopPropagation();
+            e.cancelBubble = true;
+            var node = document.getElementById('language-options');
+            if (node.style.display === 'none' || node.style.display === '') {
+                node.style.display = 'block';
+            } else {
+                node.style.display = 'none';
+            }
+        }
+
+        function languageChange(language) {
+            document.querySelectorAll('#current-language >span:first-child')[0].innerHTML = language === 'zh-CN' ? 'Chinese' : 'English';
+            window.zE(function () {
+                window.zE.setLocale(language);
+            });
+            var arr = document.querySelectorAll('#container > p');
+            var button = document.getElementById('open-customer');
+            if (language === 'zh-CN') {
+                arr[0].innerHTML = '尊敬的用户：';
+                arr[1].innerHTML = 'Pena正在进行系统维护升级，维护期间，网站和APP将有一段时间无法访问，API暂停提供数据。给您带来的不便深表歉意！';
+                arr[2].innerHTML = '感谢您对Pena的理解与支持！';
+                arr[3].innerHTML = '-----Pena全球站';
+                button.innerHTML = '联系客服';
+            } else {
+                arr[0].innerHTML = 'Dear users:';
+                arr[1].innerHTML = 'Pena is conducting a system upgrade and maintenance. During the maintenance, our website, App and API will be unvailable.';
+                arr[2].innerHTML = 'Sorry for the inconvenience.';
+                arr[3].innerHTML = '----- Pena Team';
+                button.innerHTML = 'Contact Support';
+            }
+        }
+
+        function openCustomer() {
+            window.zE(function () {
+                window.zE.setLocale(document.querySelectorAll('#current-language >span:first-child')[0].innerHTML==='Chinese' ? 'zh-CN' : 'zh-EN');
+                window.zE.activate();
+            });
+        }
+
+        window.onload = function () {
+            document.body.addEventListener('click', function (e) {
+                document.getElementById('language-options').style.display = 'none';
+            })
+        }
+    </script>
+</head>
+<body>
+<div id="container">
+    <div class="right">
+        <div id="language-container">
+            <span id="current-language" onclick="showLanguage(event)"><span>English</span><span
+                    class="down-triangle"></span></span>
+            <ul id="language-options">
+                <li onclick="languageChange('zh-CN')">Chinese</li>
+                <li onclick="languageChange('zh-EN')">English</li>
+            </ul>
+        </div>
+    </div>
+    <div id="bg"></div>
+    <p class="line-height-35 bold">Dear users:</p>
+    <p class="line-height-35">Pena is conducting a system upgrade and maintenance. During the maintenance, our
+        website, App and API will be unvailable.</p>
+    <p class="line-height-35">Sorry for the inconvenience.</p>
+    <p class="line-height-35 bold right margin-50">----- Pena Team</p>
+    <div id="open-customer-container" class="right"><span id="open-customer"
+                                                          onclick="openCustomer()">Contact Support</span></div>
+</div>
+</body>
+</html>
