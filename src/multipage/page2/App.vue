@@ -1,15 +1,15 @@
 <template>
-  <div class="App">
-    <transition name="router-fade" mode="out-in">
-        <router-view></router-view>
-    </transition>
+    <div v-if="onOff" class="App">
+        <transition name="router-fade" mode="out-in">
+            <router-view></router-view>
+        </transition>
 
-    <loading
-        :showLoading="isLoading"
-        :showRefreshBt="showRefreshBt"
-        :status="status"
-    />
-  </div>
+        <loading
+            :showLoading="isLoading"
+            :showRefreshBt="showRefreshBt"
+            :status="status"
+        />
+    </div>
 </template>
 
 <script>
@@ -17,6 +17,12 @@
     import {mapState} from 'vuex';
 
     export default {
+        data(){
+            return{
+                onOff:true,
+            }
+        },
+
         computed:{
             ...mapState({
                 isLoading(state){
@@ -31,8 +37,18 @@
             })
         },
 
-        mounted(){
+        created(){
+            //挂载刷新方法在window上
+            window.webviewRefresh=this.webviewRefresh;
+        },
 
+        methods:{
+            webviewRefresh(){
+                this.onOff=false;
+                setTimeout(()=>{
+                    this.onOff=true;
+                },300);
+            },
         },
 
         components:{

@@ -3735,6 +3735,12 @@ function hasPrevHistoryPage(){
 
 //原生嵌入webview的刷新方法
 function webviewRefresh(){
+    //如果有定义window下的webviewRefresh，则执行window下的webviewRefresh。
+    if(window.webviewRefresh){
+        window.webviewRefresh();
+        return;
+    }
+
     var rPath='';
     var pathname=window.location.pathname;
     var search='';
