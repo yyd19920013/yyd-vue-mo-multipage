@@ -233,6 +233,7 @@ let oldTo={};
 
 //路由改变之前显示loading
 router.beforeEach((to,from,next)=>{
+    if(!window.navigator.onLine)return alerts('当前无网络！');
     store.commit({
         type:'UPDATE_LOADINGSTATUS',
         isLoading:true,
