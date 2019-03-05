@@ -233,7 +233,6 @@ let oldTo={};
 
 //路由改变之前显示loading
 router.beforeEach((to,from,next)=>{
-    if(!window.navigator.onLine)return alerts('当前无网络！');
     store.commit({
         type:'UPDATE_LOADINGSTATUS',
         isLoading:true,
@@ -356,6 +355,9 @@ if(noNative){
 
 //rem根据屏幕变化
 htmlFontSize();
+
+//网络处理
+networkHandle();
 
 //手机调试模式
 openMoblieDebug(['ih.dev.aijk.net','ih2.test.aijk.net']);

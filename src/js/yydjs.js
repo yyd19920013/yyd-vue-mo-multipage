@@ -192,23 +192,13 @@ function unbind(obj,evname,fn){
 
 //网络处理
 function networkHandle(onlineFn,offlineFn){
-    var oMask=document.createElement('div');
-    var oWrap=document.createElement('div');
-    var textArr=['当前无网络连接！','网络连接已恢复！'];
-
-    oMask.style.cssText='width:100%; height:100%; background-color:rgba(0,0,0,0.6); position:fixed; left:0; top:0; z-index:999999999;';
-    oWrap.style.cssText='width:200px; height:50px; line-height:50px; text-align:center; border-radius:5px; background-color:#fff; font-size:16px; position:absolute; left:0; top:0; right:0; bottom:0; margin:auto; z-index:10;';
-    oMask.appendChild(oWrap);
-
     window.onoffline=function(){
-        oWrap.innerHTML=textArr[0];
-        document.body.appendChild(oMask);
+        alerts('网络已断开！');
         offlineFn&&offlineFn();
     };
     window.ononline=function(){
-        oWrap.innerHTML=textArr[1];
+        alerts('网络已连接！');
         setTimeout(function(){
-            document.body.removeChild(oMask);
             webviewRefresh();
         },3000);
         onlineFn&&onlineFn();
@@ -2983,7 +2973,6 @@ function preload(arr,endFn){
     });
 */
 function ajaxWrap(config){
-    if(!window.navigator.onLine)return alerts('当前无网络！');
     var str='';
     var errorPromise={
         then:function(){
@@ -3412,7 +3401,6 @@ function computed(num1,operator,num2){
     });
 */
 function axiosWrap(config){
-    if(!window.navigator.onLine)return alerts('当前无网络！');
     var config=config||{};
     var hostname=window.location.hostname;
     var all=config.all;
