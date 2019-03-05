@@ -109,6 +109,7 @@
             display: block;
         }
         &.active1{
+            display: none;
             background-image: none;
             .errorWrap{
                 display: block;

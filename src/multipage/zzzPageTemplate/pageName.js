@@ -357,9 +357,6 @@ if(noNative){
 //rem根据屏幕变化
 htmlFontSize();
 
-//网络处理
-networkHandle();
-
 //手机调试模式
 openMoblieDebug(['ih.dev.aijk.net','ih2.test.aijk.net']);
 
