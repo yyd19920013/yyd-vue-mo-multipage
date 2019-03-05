@@ -36,6 +36,7 @@ var webpackConfig = {
       'services': resolve('src/services'),
       'filter': resolve('src/filter'),
       'multipage': resolve('src/multipage'),
+      'pageName': resolve('src/multipage/zzzPageTemplate'),
       'page1': resolve('src/multipage/page1'),
       'page2': resolve('src/multipage/page2'),
     }
