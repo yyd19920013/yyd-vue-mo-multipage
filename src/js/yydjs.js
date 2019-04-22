@@ -626,7 +626,7 @@ var cookie={
     get:function(key){//获取cookie
         var str=document.cookie;
         var reg1=/\=+/g;
-        var reg2=/\;+/g;
+        var reg2=/(\;|[\;\s])+/g;
 
         try{
             str=str.replace(reg1,'":"');

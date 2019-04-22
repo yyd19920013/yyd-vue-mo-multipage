@@ -213,7 +213,7 @@ MyPlugin.install=function(Vue,options){
         Vue.prototype.dictionaries=dictionaries;
         vmEvent.$emit('dictionariesFinished',dictionaries);
     });
-}
+};
 
 //调用 `MyPlugin.install(Vue)`
 Vue.use(MyPlugin);

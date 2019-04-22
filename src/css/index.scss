@@ -14,7 +14,7 @@ a,button,label{text-decoration:none;-webkit-tap-highlight-color:rgba(0,0,0,0);}
 table{border-collapse:collapse;}
 input,textarea,select,button{outline:none;font-family:arial,helvetica,sans-serif;color:#333;font-size:14px;}
 textarea{resize:none;overflow:auto;}
-input[type="text"],input[type="number"],input[type="password"],input[type="email"],input[type="url"],input[type="submit"]{-webkit-appearance:none;border:1px solid #ddd;}
+input[type="text"],input[type="number"],input[type="password"],input[type="email"],input[type="url"],input[type="submit"]{-webkit-appearance:none;border-color:#ddd;}
 input[type="number"]::-webkit-inner-spin-button,input[type="number"]::-webkit-outer-spin-button{-webkit-appearance:none;font-size:14px;}
 select,textarea{border:1px solid #ddd;}
 iframe{vertical-align:top;-webkit-overflow-scrolling:touch;overflow:auto;}
