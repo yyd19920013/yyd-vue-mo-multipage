@@ -5,38 +5,36 @@ const URL='/api';//域名
 
 const API=(config)=>{
     let arr=config.url.split('/');
-    let testToken=[''];
+    let testToken=['85630dde-615d-4a8b-a875-693164df9148'];
 
-    //lStore.set('token',testToken[0]);
+    lStore.set('token',testToken[0]);
 
     delete config.url;
-    config.url=URL+'/*.jsonRequest';
+    config.url=URL+'/*.request';
+    config.method='post';
     config.headers={
         'X-Requested-With':'XMLHttpRequest',
         'X-Service-Id':arr[0],
         'X-Access-Token':lStore.get('token'),
         'X-Service-Method':arr[1],
-        'B-Product-Code':lStore.get('bCode')||'hcn.patient_android',
-        'T-Product-Code':lStore.get('tCode')||'hcn.xijing.patient_android',
+        'B-Product-Code':lStore.get('bCode')||'hcn.zhongshanih.patient_android',
+        // 'T-Product-Code':lStore.get('tCode')||'hcn.zhongshanih.patient_android',
     };
     config.store=import('page2/store');
 
-    axiosWrap(config);
+    return axiosWrap(config);
 };
 
 //axios请求示例
-const testAxios=(params,endFn)=>{
+const testAxios=(params,success)=>{
     API({
         url:'cas_ih.indexService/residentIndex',
-        method:'post',
-        params:params,
-        success:(res)=>{
-            endFn&&endFn(res);
-        },
+        params,
+        success,
     });
 };
 
-const mockDoctorList=(params,endFn)=>{
+const mockDoctorList=(params,success)=>{
     var defaultParams={
         page:0,
         pageSize:10,
@@ -64,21 +62,18 @@ const mockDoctorList=(params,endFn)=>{
     }
 
     setTimeout(()=>{
-        endFn&&endFn(res);
+        success&&success(res);
     },1000);
 };
 
 /*
     []
 */
-const findDic=(params,endFn)=>{
+const findDic=(params,success)=>{
     API({
         url:'cas_ih.multipleDictionaryService/findDic',
-        method:'post',
-        params:params,
-        success:(res)=>{
-            endFn&&endFn(res);
-        },
+        params,
+        success,
     });
 };
 
@@ -87,14 +82,11 @@ const findDic=(params,endFn)=>{
         'keyWord',//关键字
     ]
 */
-const searchDoctor=(params,endFn)=>{
+const searchDoctor=(params,success)=>{
     API({
         url:'cas_ih.indexService/searchDoctor',
-        method:'post',
-        params:params,
-        success:(res)=>{
-            endFn&&endFn(res);
-        },
+        params,
+        success,
     });
 };
 
@@ -104,29 +96,23 @@ const searchDoctor=(params,endFn)=>{
         limit,//每页数量
     ]
 */
-const residentIndex=(params,endFn)=>{
+const residentIndex=(params,success)=>{
     API({
         url:'cas_ih.indexService/residentIndex',
-        method:'post',
-        params:params,
-        success:(res)=>{
-            endFn&&endFn(res);
-        },
+        params,
+        success,
     });
 };
 
 /*
     []
 */
-const findUnfinishConsult=(params,endFn)=>{
+const findUnfinishConsult=(params,success)=>{
     API({
         url:'cas_ih.indexService/findUnfinishConsult',
-        method:'post',
-        params:params,
+        params,
         noToLogin:true,
-        success:(res)=>{
-            endFn&&endFn(res);
-        },
+        success,
     });
 };
 
@@ -140,14 +126,11 @@ const findUnfinishConsult=(params,endFn)=>{
         "limit":10
     }]
 */
-const findDoctors=(params,endFn)=>{
+const findDoctors=(params,success)=>{
     API({
         url:'cas_ih.doctorOnlineService/findDoctors',
-        method:'post',
-        params:params,
-        success:(res)=>{
-            endFn&&endFn(res);
-        },
+        params,
+        success,
     });
 };
 
@@ -155,28 +138,22 @@ const findDoctors=(params,endFn)=>{
     [doctorId]
 ]
 */
-const getDoctorInfo=(params,endFn)=>{
+const getDoctorInfo=(params,success)=>{
     API({
         url:'cas_ih.doctorOnlineService/getDoctorInfo',
-        method:'post',
-        params:params,
-        success:(res)=>{
-            endFn&&endFn(res);
-        },
+        params,
+        success,
     });
 };
 
 /*
     []
 */
-const getFirstDeptList=(params,endFn)=>{
+const getFirstDeptList=(params,success)=>{
     API({
         url:'cas_ih.doctorOnlineService/getFirstDeptList',
-        method:'post',
-        params:params,
-        success:(res)=>{
-            endFn&&endFn(res);
-        },
+        params,
+        success,
     });
 };
 
@@ -185,14 +162,11 @@ const getFirstDeptList=(params,endFn)=>{
         1,  // 科室id
     ]
 */
-const getSecondDeptList=(params,endFn)=>{
+const getSecondDeptList=(params,success)=>{
     API({
         url:'cas_ih.doctorOnlineService/getSecondDeptList',
-        method:'post',
-        params:params,
-        success:(res)=>{
-            endFn&&endFn(res);
-        },
+        params,
+        success,
     });
 };
 
@@ -203,14 +177,11 @@ const getSecondDeptList=(params,endFn)=>{
       10  // limit
     ]
 */
-const getOnlineConsultDoctorInfo=(params,endFn)=>{
+const getOnlineConsultDoctorInfo=(params,success)=>{
     API({
         url:'cas_ih.doctorOnlineService/getOnlineConsultDoctorInfo',
-        method:'post',
-        params:params,
-        success:(res)=>{
-            endFn&&endFn(res);
-        },
+        params,
+        success,
     });
 };
 
@@ -221,56 +192,44 @@ const getOnlineConsultDoctorInfo=(params,endFn)=>{
       10  // limit
     ]
 */
-const getDocScheduleList=(params,endFn)=>{
+const getDocScheduleList=(params,success)=>{
     API({
         url:'cas_ih.doctorOnlineService/getDocScheduleList',
-        method:'post',
-        params:params,
-        success:(res)=>{
-            endFn&&endFn(res);
-        },
+        params,
+        success,
     });
 };
 
 /*
     []
 */
-const searchMyVoucher=(params,endFn)=>{
+const searchMyVoucher=(params,success)=>{
     API({
         url:'cas_ih.voucherH5Service/searchMyVoucher',
-        method:'post',
-        params:params,
-        success:(res)=>{
-            endFn&&endFn(res);
-        },
+        params,
+        success,
     });
 };
 
 /*
     []
 */
-const searchMyVoucherUsed=(params,endFn)=>{
+const searchMyVoucherUsed=(params,success)=>{
     API({
         url:'cas_ih.voucherH5Service/searchMyVoucherUsed',
-        method:'post',
-        params:params,
-        success:(res)=>{
-            endFn&&endFn(res);
-        },
+        params,
+        success,
     });
 };
 
 /*
     ["12345"]
 */
-const exchangeVoucher=(params,endFn)=>{
+const exchangeVoucher=(params,success)=>{
     API({
         url:'cas_ih.voucherH5Service/exchangeVoucher',
-        method:'post',
-        params:params,
-        success:(res)=>{
-            endFn&&endFn(res);
-        },
+        params,
+        success,
     });
 };
 
@@ -281,14 +240,11 @@ const exchangeVoucher=(params,endFn)=>{
          10  // limit
     ]
 */
-const getEnableVoucherList=(params,endFn)=>{
+const getEnableVoucherList=(params,success)=>{
     API({
         url:'cas_ih.voucherH5Service/getEnableVoucherList',
-        method:'post',
-        params:params,
-        success:(res)=>{
-            endFn&&endFn(res);
-        },
+        params,
+        success,
     });
 };
 
@@ -299,14 +255,11 @@ const getEnableVoucherList=(params,endFn)=>{
          10  // limit
     ]
 */
-const getDisableVoucherList=(params,endFn)=>{
+const getDisableVoucherList=(params,success)=>{
     API({
         url:'cas_ih.voucherH5Service/getDisableVoucherList',
-        method:'post',
-        params:params,
-        success:(res)=>{
-            endFn&&endFn(res);
-        },
+        params,
+        success,
     });
 };
 
@@ -315,28 +268,22 @@ const getDisableVoucherList=(params,endFn)=>{
     "02",  // itemCode 问诊项  01图文  02视频  可用的传01的话不可用就要传02
     ]
 */
-const getVoucherCount=(params,endFn)=>{
+const getVoucherCount=(params,success)=>{
     API({
         url:'cas_ih.voucherH5Service/getVoucherCount',
-        method:'post',
-        params:params,
-        success:(res)=>{
-            endFn&&endFn(res);
-        },
+        params,
+        success,
     });
 };
 
 /*
     []
 */
-const getPatientList=(params,endFn)=>{
+const getPatientList=(params,success)=>{
     API({
         url:'cas_ih.patientMemberService/getPatientList',
-        method:'post',
-        params:params,
-        success:(res)=>{
-            endFn&&endFn(res);
-        },
+        params,
+        success,
     });
 };
 
@@ -350,28 +297,22 @@ const getPatientList=(params,endFn)=>{
      "phone":"18505811167"//电话
     }]
 */
-const addPatient=(params,endFn)=>{
+const addPatient=(params,success)=>{
     API({
         url:'cas_ih.patientMemberService/addPatient',
-        method:'post',
-        params:params,
-        success:(res)=>{
-            endFn&&endFn(res);
-        },
+        params,
+        success,
     });
 };
 
 /*
     [就诊人id]
 */
-const getHealthinfoById=(params,endFn)=>{
+const getHealthinfoById=(params,success)=>{
     API({
         url:'cas_ih.healthinfoService/getHealthinfoById',
-        method:'post',
-        params:params,
-        success:(res)=>{
-            endFn&&endFn(res);
-        },
+        params,
+        success,
     });
 };
 
@@ -390,28 +331,22 @@ const getHealthinfoById=(params,endFn)=>{
         "mpiId":"111" //内部的就有mpiId outId 和mpiId传一个就行
     }]
 */
-const saveOrUpdate=(params,endFn)=>{
+const saveOrUpdate=(params,success)=>{
     API({
         url:'cas_ih.healthinfoService/saveOrUpdate',
-        method:'post',
-        params:params,
-        success:(res)=>{
-            endFn&&endFn(res);
-        },
+        params,
+        success,
     });
 };
 
 /*
     [第三方就诊人Id outId或者mpiId传一个]
 */
-const getHealthinfoByThirdpartyId=(params,endFn)=>{
+const getHealthinfoByThirdpartyId=(params,success)=>{
     API({
         url:'cas_ih.healthinfoService/getHealthinfoByThirdpartyId',
-        method:'post',
-        params:params,
-        success:(res)=>{
-            endFn&&endFn(res);
-        },
+        params,
+        success,
     });
 };
 
@@ -424,14 +359,11 @@ const getHealthinfoByThirdpartyId=(params,endFn)=>{
       }
     ]
 */
-const askListPage=(params,endFn)=>{
+const askListPage=(params,success)=>{
     API({
         url:'cas_ih.askOrderService/askListPage',
-        method:'post',
-        params:params,
-        success:(res)=>{
-            endFn&&endFn(res);
-        },
+        params,
+        success,
     });
 };
 
@@ -439,14 +371,11 @@ const askListPage=(params,endFn)=>{
     [
     ]
 */
-const itemAndCount=(params,endFn)=>{
+const itemAndCount=(params,success)=>{
     API({
         url:'cas_ih.askOrderService/itemAndCount',
-        method:'post',
-        params:params,
-        success:(res)=>{
-            endFn&&endFn(res);
-        },
+        params,
+        success,
     });
 };
 
@@ -455,14 +384,11 @@ const itemAndCount=(params,endFn)=>{
       1   // 主键
     ]
 */
-const askDetail=(params,endFn)=>{
+const askDetail=(params,success)=>{
     API({
         url:'cas_ih.askOrderService/detail',
-        method:'post',
-        params:params,
-        success:(res)=>{
-            endFn&&endFn(res);
-        },
+        params,
+        success,
     });
 };
 
@@ -512,73 +438,56 @@ const askDetail=(params,endFn)=>{
         }
     ]
 */
-const createConsultOrder=(params,endFn)=>{
+const createConsultOrder=(params,success)=>{
     API({
         url:'cas_ih.orderService/createConsultOrder',
-        method:'post',
-        params:params,
-        success:(res)=>{
-            endFn&&endFn(res);
-        },
+        params,
+        success,
     });
 };
 
 /*
     ["201809190120180920"]  //订单号orderNo
 */
-const cancelConsultOrder=(params,endFn)=>{
+const cancelConsultOrder=(params,success)=>{
     API({
         url:'cas_ih.orderService/cancelConsultOrder',
-        method:'post',
-        params:params,
-        success:(res)=>{
-            endFn&&endFn(res);
-        },
+        params,
+        success,
     });
 };
 
 /*
     ["201809190120180920"]  //订单号orderNo
 */
-const cancelLockOrder=(params,endFn)=>{
+const cancelLockOrder=(params,success)=>{
     API({
         url:'cas_ih.orderService/cancelLockOrder',
-        method:'post',
-        params:params,
-        success:(res)=>{
-            endFn&&endFn(res);
-        },
+        params,
+        success,
     });
 };
 
 /*
     ["201809190120180920"]  //订单号orderNo
 */
-const payOrder=(params,endFn,endFn1)=>{
+const payOrder=(params,success,finallyFn)=>{
     API({
         url:'cas_ih.orderService/payOrder',
-        method:'post',
-        params:params,
-        success:(res)=>{
-            endFn&&endFn(res);
-        },
-        finally:(res)=>{
-            endFn1&&endFn1(res);
-        },
+        params,
+        success,
+        finally:finallyFn,
     });
 };
 
 /*
     ["201809190120180920"]  //订单号orderNo
 */
-const notifyPayResult=(params,endFn)=>{
+const notifyPayResult=(params,success)=>{
     API({
         url:'cas_ih.orderService/notifyPayResult',
-        method:'post',
-        params:params,
-        success:(res)=>{
-            endFn&&endFn(res);
-        },
+        params,
+        success,
     });
 };
 
@@ -589,14 +498,11 @@ const notifyPayResult=(params,endFn)=>{
      10 // limit
     ]
 */
-const getComments=(params,endFn)=>{
+const getComments=(params,success)=>{
     API({
         url:'cas_ih.doctorOnlineCommentService/getComments',
-        method:'post',
-        params:params,
-        success:(res)=>{
-            endFn&&endFn(res);
-        },
+        params,
+        success,
     });
 };
 
@@ -615,14 +521,11 @@ const getComments=(params,endFn)=>{
         }
     ]
 */
-const addComment=(params,endFn)=>{
+const addComment=(params,success)=>{
     API({
         url:'cas_ih.doctorOnlineCommentService/addComment',
-        method:'post',
-        params:params,
-        success:(res)=>{
-            endFn&&endFn(res);
-        },
+        params,
+        success,
     });
 };
 
@@ -631,28 +534,22 @@ const addComment=(params,endFn)=>{
       3  // 主键
     ]
 */
-const getByOrderDetailId=(params,endFn)=>{
+const getByOrderDetailId=(params,success)=>{
     API({
         url:'cas_ih.doctorOnlineCommentService/getByOrderDetailId',
-        method:'post',
-        params:params,
-        success:(res)=>{
-            endFn&&endFn(res);
-        },
+        params,
+        success,
     });
 };
 
 /*
     ["code"] // 配置代码 04 问诊须知
 */
-const getSetting=(params,endFn)=>{
+const getSetting=(params,success)=>{
     API({
         url:'cas_ih.settingService/getSetting',
-        method:'post',
-        params:params,
-        success:(res)=>{
-            endFn&&endFn(res);
-        },
+        params,
+        success,
     });
 };
 

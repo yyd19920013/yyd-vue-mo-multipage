@@ -89,7 +89,7 @@
 
 <script>
     import {getImgUrl,lStore,nativeApi} from 'js/yydjs';
-    import {residentIndex,findUnfinishConsult} from 'page1/services';
+    import {residentIndex,findUnfinishConsult} from 'page2/services';
     import doctorList from 'components/common/doctorList';
 
     export default{
