@@ -513,9 +513,88 @@ function layoutChange(obj){
 };
 
 //选中文字兼容
-function selectText(){
-    return  document.selection? document.selection.createRange().text //ie下
-                                :window.getSelection().toString(); //标准下
+function selectText(endFn){
+    var selectedObj=null;
+    var text='';
+    var html='';
+
+    if(document.getSelection){
+        var oDiv=document.createElement('div');
+        var cloneContents='';
+
+        selectedObj=document.getSelection();//标准
+        text=selectedObj.toString();
+        if(selectedObj.rangeCount>0){
+            cloneContents=selectedObj.getRangeAt(0).cloneContents();
+            oDiv.appendChild(cloneContents);
+            html=oDiv.innerHTML;
+        }
+    }else{
+        selectedObj=document.selection.createRange();//ie
+        text=selectedObj.text;
+        html=selectedObj.htmlText;
+    }
+
+    function getDomList(parent){
+        var parent=parent||{};
+        var domList=[];
+        var childNodes=parent.childNodes;
+
+        if(childNodes){
+            for(var i=0;i<childNodes.length;i++){
+                var isContains=selectedObj.containsNode(childNodes[i],true);
+
+                if(isContains){
+                    domList.push(childNodes[i]);
+                }
+            }
+        }
+        return domList;
+    };
+
+    endFn&&endFn({
+        selectedObj:selectedObj,//Selection对象
+        text:text,//选中的文字
+        html:html,//选中的html
+        startOffset:selectedObj.anchorOffset,//选中开始的位置（需要判断是否是从前往后选）
+        endOffset:selectedObj.focusOffset,//选中结束的位置（注意选中多个元素时，该位置是最后一个元素选中的位置）
+        getDomList:getDomList,//获取选中的真实dom
+    });
+    return text;
+};
+
+//判断是否是从前往后选
+function mouseupAndTouchend(endFn){
+    var clientY=0;
+    var startToEnd=true;
+
+    function downFn(ev){
+        var ev=ev||window.event;
+
+        clientY=ev.clientY;
+    };
+
+    function upFn(ev){
+        var ev=ev||window.event;
+
+        startToEnd=ev.clientY-clientY>0;
+        endFn&&endFn(startToEnd);
+    };
+
+    if(!isPhone()){
+        bind(document,'mousedown',downFn);
+        bind(document,'mouseup',upFn);
+    }else{
+        bind(document,'touchstart',downFn);
+        bind(document,'touchend',upFn);
+    }
+
+    window.onhashchange=function(){
+        unbind(document,'mousedown',downFn);
+        unbind(document,'mouseup',upFn);
+        unbind(document,'touchstart',downFn);
+        unbind(document,'touchend',upFn);
+    };
 };
 
 //重置file文件
@@ -3973,6 +4052,7 @@ export{
         getFlatternDistance,
         autoClipImage,
         goTop,
+        selectText,
 
         routerMap,
         getPrevPathname,
