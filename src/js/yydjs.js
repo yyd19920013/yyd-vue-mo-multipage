@@ -3622,6 +3622,7 @@ function axiosWrap(config){
                 }else{
                     alerts('网络异常'+res.status);
                     changeRefresh(true,res.status);
+                    changeLoading(false);
                     if(reject&&(Type(reject)=='function')){
                         return reject(res);
                     }else{
@@ -3630,6 +3631,7 @@ function axiosWrap(config){
                 }
             }).catch(function(error){
                 console.log(error);
+                changeLoading(false);
                 if(error.response){
                     var noLoginStatus=[403,409,503];
                     var hint=true;
@@ -3646,7 +3648,6 @@ function axiosWrap(config){
                     if(hint){
                         alerts('网络异常');
                         changeRefresh(true,error.response.status);
-                        changeLoading(false);
                         if(reject&&(Type(reject)=='function')){
                             return reject(error.response)
                         }else{
@@ -3656,7 +3657,6 @@ function axiosWrap(config){
                 }else if(error.code=='ECONNABORTED'){
                     alerts('请求超时');
                     changeRefresh(true,'请求超时');
-                    changeLoading(false);
                     if(reject&&(Type(reject)=='function')){
                         return reject(error);
                     }else{
