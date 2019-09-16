@@ -13,7 +13,7 @@ const page404=()=>import('pageName/pages/page404/page404');
 
 
 //配置路由规则
-export default[{
+export default [{
     path:'/',
     component:App, //顶层路由，对应index.html
     children:[ //二级路由。对应App.vue
@@ -48,4 +48,4 @@ export default[{
             },
         },
     ]
-}]
+}];
