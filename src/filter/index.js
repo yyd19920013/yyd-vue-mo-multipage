@@ -1,4 +1,4 @@
-import {getWeekName,formatSecond,dateFormat0,dateFormat1,numberComma,numberPad,Decimal,getAge} from 'js/yydjs.js';
+import {getWeekName,secondFormat0,dateFormat0,dateFormat1,Decimal,getAge} from 'js/yydjs.js';
 
 const date=(value,format)=>{
     if(!value&&value!=0)return;
@@ -36,26 +36,16 @@ const week=(value)=>{
     return getWeekName(value);
 };
 
-const fSecond=(value,mode)=>{
+const fSecond=(value,fmt,adjustFmt)=>{
     if(!value&&value!=0)return;
 
-    return formatSecond(value,mode);
+    return secondFormat0(value,fmt,adjustFmt);
 };
 
 const age=(value)=>{
     if(!value&&value!=0)return;
 
     return getAge(value);
-};
-
-const price=(value,length)=>{
-    if(!value&&value!=0)return;
-    return numberComma(value,length);
-};
-
-const pad=(value,length)=>{
-    if(!value&&value!=0)return;
-    return numberPad(value,length);
 };
 
 const toFixed=(value,length=2)=>{
@@ -71,7 +61,5 @@ export{
         week,//星期过滤器
         fSecond,//秒过滤器
         age,//根据出生日期算年龄
-        price,//格式化金额过滤器
-        pad,//补0过滤器
         toFixed,//小数点保留位数过滤器
 };
