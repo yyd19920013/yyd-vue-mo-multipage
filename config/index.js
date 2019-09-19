@@ -31,7 +31,7 @@ module.exports = {
     env: {
         NODE_ENV: '"development"'
     },
-    port: parseInt(Math.random()*65536),
+    port: 8888,
     autoOpenBrowser: true,
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',

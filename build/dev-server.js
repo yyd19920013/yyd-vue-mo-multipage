@@ -86,6 +86,20 @@ devMiddleware.waitUntilValid(() => {
 
 var server = app.listen(port)
 
+server.on('listening', function () { // 执行这块代码说明端口未被占用
+  console.log('端口号【' + port + '】 可用') // 控制台输出信息
+})
+server.on('error', function (err) {
+  if (err.code === 'EADDRINUSE') { // 端口已经被使用
+    var newPort = parseInt(Math.random()*65536)
+    console.log('端口号【' + port + '】 被占用，正在打开新端口号【' + newPort + '】')
+    server.close() // 关闭服务
+    port = newPort;
+    uri = 'http://localhost:' + port
+    server = app.listen(port)
+  }
+})
+
 module.exports = {
   ready: readyPromise,
   close: () => {
