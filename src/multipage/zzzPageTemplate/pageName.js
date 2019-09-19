@@ -15,7 +15,7 @@ import fastclick from 'fastclick';
 import * as yyd from 'js/yydjs';
 import * as filter from 'filter';
 import {QSA,alerts,consoleNull,htmlFontSize,networkHandle,openMoblieDebug,bind,unbind,pDef,lStore,sStore,isPhone,strToJson,controlBodyScroll,hasPrevHistoryPageFn} from 'js/yydjs';
-import {URL,findDic} from 'page1/services';
+import {URL} from 'pageName/services';
 
 //处理点击延迟
 let hostname=window.location.hostname;
@@ -113,106 +113,6 @@ MyPlugin.install=function(Vue,options){
 
     //4. 添加实例方法
     //Vue.prototype.method=yyd;
-
-    //挂载字典
-    const setDictionaries=(endFn)=>{
-        let prefix='cfs.dic.';
-        let params=[[
-            'ih_foodAllergy',//食物过敏
-            'ih_medicalAllergy',//药物过敏
-            'ih_familyDiseaseHistory',//家族病史
-            'ih_operationOrTrauma',//手术外伤
-            'ih_orderCurrentStatus',//订单状态
-            'base_conStatus',//问诊状态
-            'ih_commentStatus',//评论状态
-            'ih_commentTagCode',//评价标签
-        ]];
-        let dictionaries={
-            statusJson:{},
-            statusDetailJson:{},
-        };
-
-        for(let i=0;i<params[0].length;i++){
-            dictionaries[params[0][i]]={};
-            params[0][i]=prefix+params[0][i];
-        }
-
-        Vue.prototype.dictionaries=dictionaries;
-
-        findDic(params,(res)=>{
-            let arr=res.body;
-
-            for(let item of arr){
-                let key=item.dicId.replace(prefix,'');
-
-                key=key.replace('ih_','');
-                dictionaries[key]=item.items;
-            }
-
-            let {base_conStatus,orderCurrentStatus,medicalAllergy,foodAllergy,familyDiseaseHistory,operationOrTrauma}=dictionaries;
-            let color='';
-            let btText='';
-            let btBg='';
-
-            function createOrderStatus(statusArr,name){
-                if(!dictionaries[name]){
-                    dictionaries[name]={};
-                }
-
-                for(let item of statusArr){
-                    color='#333';
-                    btBg='transparent';
-                    btText='';
-                    switch(item.key){
-                        case '11':
-                                color='#ff7955';
-                                btBg='#ff7955';
-                                btText='立即支付';
-                            break;
-                        case '12':
-                                color='#999';
-                            break;
-                        case '15':
-                                color='#999';
-                                btBg='#33adff';
-                                btText='重新下单';
-                            break;
-                        case '51':
-                                color='#33adff';
-                            break;
-                        case '52':
-                                color='#33adff';
-                            break;
-                        case '53':
-                                color='#999';
-                            break;
-                    }
-
-                    dictionaries[name][item.key]={
-                        text:item.text,
-                        color,
-                        btText,
-                        btBg,
-                    };
-                }
-            };
-
-            createOrderStatus(base_conStatus,'statusJson');
-            createOrderStatus(orderCurrentStatus,'statusDetailJson');
-
-            dictionaries.goodsJson={
-                '01':'30',
-                '02':'40',
-                '03':'50',
-            };
-            endFn&&endFn(dictionaries);
-        });
-    };
-
-    setDictionaries((dictionaries)=>{
-        Vue.prototype.dictionaries=dictionaries;
-        vmEvent.$emit('dictionariesFinished',dictionaries);
-    });
 };
 
 //调用 `MyPlugin.install(Vue)`
@@ -289,20 +189,8 @@ router.afterEach((to,from)=>{
         if(to.query.app){
             lStore.set('app',to.query.app);
         }
-        if(to.query.statusBarHeight){
-            lStore.set('statusBarHeight',to.query.statusBarHeight);
-        }
         if(to.query.token){
             lStore.set('token',to.query.token);
-        }
-        if(to.query.mobile){
-            lStore.set('mobile',to.query.mobile);
-        }
-        if(to.query.bCode){
-            lStore.set('bCode',to.query.bCode);
-        }
-        if(to.query.tCode){
-            lStore.set('tCode',to.query.tCode);
         }
     };
     queryHandle();

@@ -1,5 +1,5 @@
 import {md5} from 'vux';
-import {cookie,lStore,sStore,alerts,strToJson,axios,axiosWrap,createStr} from 'js/yydjs.js';
+import {cookie,lStore,sStore,alerts,strToJson,axios,axiosWrap} from 'js/yydjs.js';
 
 const URL='/api';//域名
 
@@ -20,7 +20,7 @@ const API=(config)=>{
         'B-Product-Code':lStore.get('bCode')||'hcn.zhongshanih.patient_android',
         // 'T-Product-Code':lStore.get('tCode')||'hcn.zhongshanih.patient_android',
     };
-    config.store=import('pageName/store');//需要修改引入的store
+    config.store=import('pageName/store');
 
     return axiosWrap(config);
 };
@@ -32,38 +32,6 @@ const testAxios=(params,success)=>{
         params,
         success,
     });
-};
-
-const mockDoctorList=(params,success)=>{
-    var defaultParams={
-        page:0,
-        pageSize:10,
-    };
-    var res={
-        code:0,
-        data:{
-            dataList:[],
-            rows:100,
-        },
-        message:'请求成功',
-    };
-
-    for(let attr in params){
-        defaultParams[attr]=params[attr];
-    }
-
-    for(let i=0;i<defaultParams.pageSize;i++){
-        res.data.dataList.push({
-            doctorName:createStr(3),
-            hospital:createStr(6),
-            count:Math.floor(Math.random()*100),
-            detail:createStr(50),
-        });
-    }
-
-    setTimeout(()=>{
-        success&&success(res);
-    },1000);
 };
 
 /*
@@ -557,7 +525,6 @@ export{
         URL,//域名
         API,//api请求函数
         testAxios,//axios请求示例
-        mockDoctorList,//mock医生列表
         findDic,//请求字典通用接口
         searchDoctor,//搜索医生
         residentIndex,//首页
