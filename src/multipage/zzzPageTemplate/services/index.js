@@ -1,34 +1,34 @@
-import {md5} from 'vux';
-import {cookie,lStore,sStore,alerts,strToJson,axios,axiosWrap} from 'js/yydjs.js';
+import md5 from 'md5';
+import { cookie, lStore, sStore, alerts, strToJson, axios, axiosWrap } from 'js/yydjs.js';
 
-const URL='/api';//域名
+const URL = '/api'; //域名
 
-const API=(config)=>{
-    let arr=config.url.split('/');
-    let testToken=['85630dde-615d-4a8b-a875-693164df9148'];
+const API = (config) => {
+    let arr = config.url.split('/');
+    let testToken = ['85630dde-615d-4a8b-a875-693164df9148'];
 
-    lStore.set('token',testToken[0]);
+    lStore.set('token', testToken[0]);
 
     delete config.url;
-    config.url=URL+'/*.request';
-    config.method='post';
-    config.headers={
-        'X-Requested-With':'XMLHttpRequest',
-        'X-Service-Id':arr[0],
-        'X-Access-Token':lStore.get('token'),
-        'X-Service-Method':arr[1],
-        'B-Product-Code':lStore.get('bCode')||'hcn.zhongshanih.patient_android',
+    config.url = URL + '/*.request';
+    config.method = 'post';
+    config.headers = {
+        'X-Requested-With': 'XMLHttpRequest',
+        'X-Service-Id': arr[0],
+        'X-Access-Token': lStore.get('token'),
+        'X-Service-Method': arr[1],
+        'B-Product-Code': lStore.get('bCode') || 'hcn.zhongshanih.patient_android',
         // 'T-Product-Code':lStore.get('tCode')||'hcn.zhongshanih.patient_android',
     };
-    config.store=import('pageName/store');
+    config.store = import('pageName/store');
 
     return axiosWrap(config);
 };
 
 //axios请求示例
-const testAxios=(params,success)=>{
+const testAxios = (params, success) => {
     API({
-        url:'cas_ih.indexService/residentIndex',
+        url: 'cas_ih.indexService/residentIndex',
         params,
         success,
     });
@@ -37,9 +37,9 @@ const testAxios=(params,success)=>{
 /*
     []
 */
-const findDic=(params,success)=>{
+const findDic = (params, success) => {
     API({
-        url:'cas_ih.multipleDictionaryService/findDic',
+        url: 'cas_ih.multipleDictionaryService/findDic',
         params,
         success,
     });
@@ -50,9 +50,9 @@ const findDic=(params,success)=>{
         'keyWord',//关键字
     ]
 */
-const searchDoctor=(params,success)=>{
+const searchDoctor = (params, success) => {
     API({
-        url:'cas_ih.indexService/searchDoctor',
+        url: 'cas_ih.indexService/searchDoctor',
         params,
         success,
     });
@@ -64,9 +64,9 @@ const searchDoctor=(params,success)=>{
         limit,//每页数量
     ]
 */
-const residentIndex=(params,success)=>{
+const residentIndex = (params, success) => {
     API({
-        url:'cas_ih.indexService/residentIndex',
+        url: 'cas_ih.indexService/residentIndex',
         params,
         success,
     });
@@ -75,11 +75,11 @@ const residentIndex=(params,success)=>{
 /*
     []
 */
-const findUnfinishConsult=(params,success)=>{
+const findUnfinishConsult = (params, success) => {
     API({
-        url:'cas_ih.indexService/findUnfinishConsult',
+        url: 'cas_ih.indexService/findUnfinishConsult',
         params,
-        noToLogin:true,
+        noToLogin: true,
         success,
     });
 };
@@ -94,9 +94,9 @@ const findUnfinishConsult=(params,success)=>{
         "limit":10
     }]
 */
-const findDoctors=(params,success)=>{
+const findDoctors = (params, success) => {
     API({
-        url:'cas_ih.doctorOnlineService/findDoctors',
+        url: 'cas_ih.doctorOnlineService/findDoctors',
         params,
         success,
     });
@@ -106,9 +106,9 @@ const findDoctors=(params,success)=>{
     [doctorId]
 ]
 */
-const getDoctorInfo=(params,success)=>{
+const getDoctorInfo = (params, success) => {
     API({
-        url:'cas_ih.doctorOnlineService/getDoctorInfo',
+        url: 'cas_ih.doctorOnlineService/getDoctorInfo',
         params,
         success,
     });
@@ -117,9 +117,9 @@ const getDoctorInfo=(params,success)=>{
 /*
     []
 */
-const getFirstDeptList=(params,success)=>{
+const getFirstDeptList = (params, success) => {
     API({
-        url:'cas_ih.doctorOnlineService/getFirstDeptList',
+        url: 'cas_ih.doctorOnlineService/getFirstDeptList',
         params,
         success,
     });
@@ -130,9 +130,9 @@ const getFirstDeptList=(params,success)=>{
         1,  // 科室id
     ]
 */
-const getSecondDeptList=(params,success)=>{
+const getSecondDeptList = (params, success) => {
     API({
-        url:'cas_ih.doctorOnlineService/getSecondDeptList',
+        url: 'cas_ih.doctorOnlineService/getSecondDeptList',
         params,
         success,
     });
@@ -145,9 +145,9 @@ const getSecondDeptList=(params,success)=>{
       10  // limit
     ]
 */
-const getOnlineConsultDoctorInfo=(params,success)=>{
+const getOnlineConsultDoctorInfo = (params, success) => {
     API({
-        url:'cas_ih.doctorOnlineService/getOnlineConsultDoctorInfo',
+        url: 'cas_ih.doctorOnlineService/getOnlineConsultDoctorInfo',
         params,
         success,
     });
@@ -160,9 +160,9 @@ const getOnlineConsultDoctorInfo=(params,success)=>{
       10  // limit
     ]
 */
-const getDocScheduleList=(params,success)=>{
+const getDocScheduleList = (params, success) => {
     API({
-        url:'cas_ih.doctorOnlineService/getDocScheduleList',
+        url: 'cas_ih.doctorOnlineService/getDocScheduleList',
         params,
         success,
     });
@@ -171,9 +171,9 @@ const getDocScheduleList=(params,success)=>{
 /*
     []
 */
-const searchMyVoucher=(params,success)=>{
+const searchMyVoucher = (params, success) => {
     API({
-        url:'cas_ih.voucherH5Service/searchMyVoucher',
+        url: 'cas_ih.voucherH5Service/searchMyVoucher',
         params,
         success,
     });
@@ -182,9 +182,9 @@ const searchMyVoucher=(params,success)=>{
 /*
     []
 */
-const searchMyVoucherUsed=(params,success)=>{
+const searchMyVoucherUsed = (params, success) => {
     API({
-        url:'cas_ih.voucherH5Service/searchMyVoucherUsed',
+        url: 'cas_ih.voucherH5Service/searchMyVoucherUsed',
         params,
         success,
     });
@@ -193,9 +193,9 @@ const searchMyVoucherUsed=(params,success)=>{
 /*
     ["12345"]
 */
-const exchangeVoucher=(params,success)=>{
+const exchangeVoucher = (params, success) => {
     API({
-        url:'cas_ih.voucherH5Service/exchangeVoucher',
+        url: 'cas_ih.voucherH5Service/exchangeVoucher',
         params,
         success,
     });
@@ -208,9 +208,9 @@ const exchangeVoucher=(params,success)=>{
          10  // limit
     ]
 */
-const getEnableVoucherList=(params,success)=>{
+const getEnableVoucherList = (params, success) => {
     API({
-        url:'cas_ih.voucherH5Service/getEnableVoucherList',
+        url: 'cas_ih.voucherH5Service/getEnableVoucherList',
         params,
         success,
     });
@@ -223,9 +223,9 @@ const getEnableVoucherList=(params,success)=>{
          10  // limit
     ]
 */
-const getDisableVoucherList=(params,success)=>{
+const getDisableVoucherList = (params, success) => {
     API({
-        url:'cas_ih.voucherH5Service/getDisableVoucherList',
+        url: 'cas_ih.voucherH5Service/getDisableVoucherList',
         params,
         success,
     });
@@ -236,9 +236,9 @@ const getDisableVoucherList=(params,success)=>{
     "02",  // itemCode 问诊项  01图文  02视频  可用的传01的话不可用就要传02
     ]
 */
-const getVoucherCount=(params,success)=>{
+const getVoucherCount = (params, success) => {
     API({
-        url:'cas_ih.voucherH5Service/getVoucherCount',
+        url: 'cas_ih.voucherH5Service/getVoucherCount',
         params,
         success,
     });
@@ -247,9 +247,9 @@ const getVoucherCount=(params,success)=>{
 /*
     []
 */
-const getPatientList=(params,success)=>{
+const getPatientList = (params, success) => {
     API({
-        url:'cas_ih.patientMemberService/getPatientList',
+        url: 'cas_ih.patientMemberService/getPatientList',
         params,
         success,
     });
@@ -265,9 +265,9 @@ const getPatientList=(params,success)=>{
      "phone":"18505811167"//电话
     }]
 */
-const addPatient=(params,success)=>{
+const addPatient = (params, success) => {
     API({
-        url:'cas_ih.patientMemberService/addPatient',
+        url: 'cas_ih.patientMemberService/addPatient',
         params,
         success,
     });
@@ -276,9 +276,9 @@ const addPatient=(params,success)=>{
 /*
     [就诊人id]
 */
-const getHealthinfoById=(params,success)=>{
+const getHealthinfoById = (params, success) => {
     API({
-        url:'cas_ih.healthinfoService/getHealthinfoById',
+        url: 'cas_ih.healthinfoService/getHealthinfoById',
         params,
         success,
     });
@@ -299,9 +299,9 @@ const getHealthinfoById=(params,success)=>{
         "mpiId":"111" //内部的就有mpiId outId 和mpiId传一个就行
     }]
 */
-const saveOrUpdate=(params,success)=>{
+const saveOrUpdate = (params, success) => {
     API({
-        url:'cas_ih.healthinfoService/saveOrUpdate',
+        url: 'cas_ih.healthinfoService/saveOrUpdate',
         params,
         success,
     });
@@ -310,9 +310,9 @@ const saveOrUpdate=(params,success)=>{
 /*
     [第三方就诊人Id outId或者mpiId传一个]
 */
-const getHealthinfoByThirdpartyId=(params,success)=>{
+const getHealthinfoByThirdpartyId = (params, success) => {
     API({
-        url:'cas_ih.healthinfoService/getHealthinfoByThirdpartyId',
+        url: 'cas_ih.healthinfoService/getHealthinfoByThirdpartyId',
         params,
         success,
     });
@@ -327,9 +327,9 @@ const getHealthinfoByThirdpartyId=(params,success)=>{
       }
     ]
 */
-const askListPage=(params,success)=>{
+const askListPage = (params, success) => {
     API({
-        url:'cas_ih.askOrderService/askListPage',
+        url: 'cas_ih.askOrderService/askListPage',
         params,
         success,
     });
@@ -339,9 +339,9 @@ const askListPage=(params,success)=>{
     [
     ]
 */
-const itemAndCount=(params,success)=>{
+const itemAndCount = (params, success) => {
     API({
-        url:'cas_ih.askOrderService/itemAndCount',
+        url: 'cas_ih.askOrderService/itemAndCount',
         params,
         success,
     });
@@ -352,9 +352,9 @@ const itemAndCount=(params,success)=>{
       1   // 主键
     ]
 */
-const askDetail=(params,success)=>{
+const askDetail = (params, success) => {
     API({
-        url:'cas_ih.askOrderService/detail',
+        url: 'cas_ih.askOrderService/detail',
         params,
         success,
     });
@@ -406,9 +406,9 @@ const askDetail=(params,success)=>{
         }
     ]
 */
-const createConsultOrder=(params,success)=>{
+const createConsultOrder = (params, success) => {
     API({
-        url:'cas_ih.orderService/createConsultOrder',
+        url: 'cas_ih.orderService/createConsultOrder',
         params,
         success,
     });
@@ -417,9 +417,9 @@ const createConsultOrder=(params,success)=>{
 /*
     ["201809190120180920"]  //订单号orderNo
 */
-const cancelConsultOrder=(params,success)=>{
+const cancelConsultOrder = (params, success) => {
     API({
-        url:'cas_ih.orderService/cancelConsultOrder',
+        url: 'cas_ih.orderService/cancelConsultOrder',
         params,
         success,
     });
@@ -428,9 +428,9 @@ const cancelConsultOrder=(params,success)=>{
 /*
     ["201809190120180920"]  //订单号orderNo
 */
-const cancelLockOrder=(params,success)=>{
+const cancelLockOrder = (params, success) => {
     API({
-        url:'cas_ih.orderService/cancelLockOrder',
+        url: 'cas_ih.orderService/cancelLockOrder',
         params,
         success,
     });
@@ -439,21 +439,21 @@ const cancelLockOrder=(params,success)=>{
 /*
     ["201809190120180920"]  //订单号orderNo
 */
-const payOrder=(params,success,finallyFn)=>{
+const payOrder = (params, success, finallyFn) => {
     API({
-        url:'cas_ih.orderService/payOrder',
+        url: 'cas_ih.orderService/payOrder',
         params,
         success,
-        finally:finallyFn,
+        finally: finallyFn,
     });
 };
 
 /*
     ["201809190120180920"]  //订单号orderNo
 */
-const notifyPayResult=(params,success)=>{
+const notifyPayResult = (params, success) => {
     API({
-        url:'cas_ih.orderService/notifyPayResult',
+        url: 'cas_ih.orderService/notifyPayResult',
         params,
         success,
     });
@@ -466,9 +466,9 @@ const notifyPayResult=(params,success)=>{
      10 // limit
     ]
 */
-const getComments=(params,success)=>{
+const getComments = (params, success) => {
     API({
-        url:'cas_ih.doctorOnlineCommentService/getComments',
+        url: 'cas_ih.doctorOnlineCommentService/getComments',
         params,
         success,
     });
@@ -489,9 +489,9 @@ const getComments=(params,success)=>{
         }
     ]
 */
-const addComment=(params,success)=>{
+const addComment = (params, success) => {
     API({
-        url:'cas_ih.doctorOnlineCommentService/addComment',
+        url: 'cas_ih.doctorOnlineCommentService/addComment',
         params,
         success,
     });
@@ -502,9 +502,9 @@ const addComment=(params,success)=>{
       3  // 主键
     ]
 */
-const getByOrderDetailId=(params,success)=>{
+const getByOrderDetailId = (params, success) => {
     API({
-        url:'cas_ih.doctorOnlineCommentService/getByOrderDetailId',
+        url: 'cas_ih.doctorOnlineCommentService/getByOrderDetailId',
         params,
         success,
     });
@@ -513,49 +513,49 @@ const getByOrderDetailId=(params,success)=>{
 /*
     ["code"] // 配置代码 04 问诊须知
 */
-const getSetting=(params,success)=>{
+const getSetting = (params, success) => {
     API({
-        url:'cas_ih.settingService/getSetting',
+        url: 'cas_ih.settingService/getSetting',
         params,
         success,
     });
 };
 
-export{
-        URL,//域名
-        API,//api请求函数
-        testAxios,//axios请求示例
-        findDic,//请求字典通用接口
-        searchDoctor,//搜索医生
-        residentIndex,//首页
-        findUnfinishConsult,//登陆后查询有无未结束的问诊
-        findDoctors,//找医生
-        getDoctorInfo,//医生详情
-        getFirstDeptList,//一级科室
-        getSecondDeptList,//二级科室
-        getOnlineConsultDoctorInfo,//专家问诊详情
-        getDocScheduleList,//排班列表
-        searchMyVoucher,//获取可用问诊劵-个人中心
-        searchMyVoucherUsed,//获取已用问诊劵-个人中心
-        exchangeVoucher,//兑换问诊劵
-        getEnableVoucherList,//获取可用问诊劵-支付
-        getDisableVoucherList,//获取不可用问诊劵-支付
-        getVoucherCount,//可用及不可用问诊卷数量
-        getPatientList,//获取就诊人
-        addPatient,//添加就诊人
-        getHealthinfoById,//查询就诊人健康信息
-        saveOrUpdate,//新增或者修改就诊人健康信息
-        getHealthinfoByThirdpartyId,//根据第三方就诊人Id获取健康信息
-        askListPage,//我的问诊列表
-        itemAndCount,//问诊类型及类型下问诊数量
-        askDetail,//问诊详情
-        createConsultOrder,//问诊下单
-        cancelConsultOrder,//取消问诊订单
-        cancelLockOrder,//取消问诊订单锁定
-        payOrder,//app支付
-        notifyPayResult,//主动查询订单支付情况
-        getComments,//获取医生的评价列表
-        addComment,//评价某个医生
-        getByOrderDetailId,//获取某个评价的详情
-        getSetting,//配置
-    };
+export {
+    URL, //域名
+    API, //api请求函数
+    testAxios, //axios请求示例
+    findDic, //请求字典通用接口
+    searchDoctor, //搜索医生
+    residentIndex, //首页
+    findUnfinishConsult, //登陆后查询有无未结束的问诊
+    findDoctors, //找医生
+    getDoctorInfo, //医生详情
+    getFirstDeptList, //一级科室
+    getSecondDeptList, //二级科室
+    getOnlineConsultDoctorInfo, //专家问诊详情
+    getDocScheduleList, //排班列表
+    searchMyVoucher, //获取可用问诊劵-个人中心
+    searchMyVoucherUsed, //获取已用问诊劵-个人中心
+    exchangeVoucher, //兑换问诊劵
+    getEnableVoucherList, //获取可用问诊劵-支付
+    getDisableVoucherList, //获取不可用问诊劵-支付
+    getVoucherCount, //可用及不可用问诊卷数量
+    getPatientList, //获取就诊人
+    addPatient, //添加就诊人
+    getHealthinfoById, //查询就诊人健康信息
+    saveOrUpdate, //新增或者修改就诊人健康信息
+    getHealthinfoByThirdpartyId, //根据第三方就诊人Id获取健康信息
+    askListPage, //我的问诊列表
+    itemAndCount, //问诊类型及类型下问诊数量
+    askDetail, //问诊详情
+    createConsultOrder, //问诊下单
+    cancelConsultOrder, //取消问诊订单
+    cancelLockOrder, //取消问诊订单锁定
+    payOrder, //app支付
+    notifyPayResult, //主动查询订单支付情况
+    getComments, //获取医生的评价列表
+    addComment, //评价某个医生
+    getByOrderDetailId, //获取某个评价的详情
+    getSetting, //配置
+};
